@@ -1,0 +1,16 @@
+{% extends "network/layout.html" %}
+{% load static %}
+
+{% block body %}
+<div class="container">
+    <h2 id="h2-posts" class="shadow-sm p-3 mb-5 bg-body rounded">All {{username}}'s posts</h2>
+    {% for post in posts %}
+    <div class="post-frame">
+        <div class="text-{{post.id}} elem-post">{{post.text}}</div>
+        <span id='num-{{post.id}}'>Likes: {{post.likes_count}}</span>
+        <hr>
+    </div>
+    {% endfor %}
+    {% include "network/pagination.html" with page=posts %}
+</div>
+{% endblock %}

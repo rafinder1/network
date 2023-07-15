@@ -1,0 +1,31 @@
+{% extends "network/layout.html" %}
+{% load static %}
+
+{% block body %}
+<div class="container">
+    <h2 id="h2-posts" class="shadow-sm p-3 mb-5 bg-body rounded">All {{username}}'s posts</h2>
+    <h4 class="_name" style="display: none;">{{ username }}</h4><span>
+    <h5 id='followers_count'>{{followers_count}} Followers</h5>
+    <h5 id='following_count'>{{following_count}} Following</h5>
+    <hr>
+    <div>
+        {% if user != username and user.is_authenticated %}
+            <button class='btn btn-secondary' id='unfollow_btn'>Unfollow</button>
+            <button class='btn btn-success' id='follow_btn'>Follow</button>
+            <br>
+        {% endif %}
+    </div>
+    {% for post in posts %}
+    <div class="post-frame">
+        <div class="text-{{post.id}} elem-post">{{post.text}}</div>
+        <span id='num-{{post.id}}'>Likes: {{post.likes.count}}</span>
+        <hr>
+    </div>
+    {% endfor %}
+    {% include "network/pagination.html" with page=posts %}
+</div>
+{% endblock %}
+
+{% block script %}
+    <script src="{% static 'network/profile.js' %}"></script>
+{% endblock %}
